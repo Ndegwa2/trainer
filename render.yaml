@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: auto-trainer-api
+    env: node
+    region: oregon
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: GEMINI_API_KEY
+        value: AIzaSyAmk5iQKw3ezYQYbBQ75lY8IgDs_FWaZpg
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
