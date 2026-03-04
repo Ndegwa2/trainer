@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Auto Trainer</string>
+    <string name="title_activity_main">Auto Trainer</string>
+    <string name="package_name">com.autotrainer.app</string>
+    <string name="custom_url_scheme">com.autotrainer.app</string>
+</resources>
