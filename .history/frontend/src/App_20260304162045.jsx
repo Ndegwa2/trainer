@@ -72,16 +72,12 @@ function App() {
     backLegs: 'Back/Legs',
   };
 
-  // Split into individual and combination groups for display
-  const individualMuscleGroups = ['chest', 'back', 'arms', 'shoulders', 'legs'];
-  const combinationMuscleGroups = ['chestArms', 'backLegs'];
-
   const handleEquipmentChange = (key) => {
     setEquipmentState((prev) => {
       const newState = { ...prev, [key]: !prev[key] };
       // Convert to array format for API
       const selectedEquipment = Object.entries(newState)
-        .filter(([, value]) => value)
+        .filter(([_, value]) => value)
         .map(([key]) => {
           const mapping = {
             dumbbell: 'Dumbbell',
@@ -102,7 +98,7 @@ function App() {
       const newState = { ...prev, [key]: !prev[key] };
       // Convert to array format for API
       const selectedParts = Object.entries(newState)
-        .filter(([, value]) => value)
+        .filter(([_, value]) => value)
         .map(([key]) => {
           const mapping = {
             chest: 'Chest',
@@ -257,7 +253,13 @@ function App() {
           <CardContent>
             <div className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {individualMuscleGroups.map((key) => (
+                {Object.entries({
+                  chest: 'Chest',
+                  back: 'Back',
+                  arms: 'Arms',
+                  shoulders: 'Shoulders',
+                  legs: 'Legs',
+                }).map(([key, label]) => (
                   <div key={key} className="flex items-center space-x-2">
                     <Checkbox
                       id={key}
@@ -269,7 +271,7 @@ function App() {
                       htmlFor={key}
                       className="text-sm text-slate-200 cursor-pointer select-none"
                     >
-                      {muscleGroupOptions[key]}
+                      {label}
                     </Label>
                   </div>
                 ))}
@@ -278,7 +280,10 @@ function App() {
               <div className="pt-2 border-t border-slate-800">
                 <p className="text-xs text-slate-400 mb-3">Combination Groups</p>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {combinationMuscleGroups.map((key) => (
+                  {Object.entries({
+                    chestArms: 'Chest/Arms',
+                    backLegs: 'Back/Legs',
+                  }).map(([key, label]) => (
                     <div key={key} className="flex items-center space-x-2">
                       <Checkbox
                         id={key}
@@ -290,7 +295,7 @@ function App() {
                         htmlFor={key}
                         className="text-sm text-slate-200 cursor-pointer select-none"
                       >
-                        {muscleGroupOptions[key]}
+                        {label}
                       </Label>
                     </div>
                   ))}
@@ -315,7 +320,7 @@ function App() {
             {/* Sleep Hours */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label htmlFor="sleep-hours" className="text-slate-200">Sleep Hours</Label>
+                <Label className="text-slate-200">Sleep Hours</Label>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl font-bold text-white">{sleepHours[0]}</span>
                   <span className="text-sm text-slate-400">hours</span>
@@ -325,7 +330,6 @@ function App() {
                 </div>
               </div>
               <Slider
-                id="sleep-hours"
                 value={sleepHours}
                 onValueChange={handleSleepHoursChange}
                 min={0}
@@ -343,7 +347,7 @@ function App() {
             {/* Knee Pain */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label htmlFor="knee-pain" className="text-slate-200 flex items-center gap-2">
+                <Label className="text-slate-200 flex items-center gap-2">
                   <AlertCircle className="h-4 w-4" />
                   Knee Pain
                 </Label>
@@ -356,7 +360,6 @@ function App() {
                 </div>
               </div>
               <Slider
-                id="knee-pain"
                 value={kneePain}
                 onValueChange={handleKneePainChange}
                 min={0}
@@ -374,7 +377,7 @@ function App() {
             {/* Back Stiffness */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label htmlFor="back-stiffness" className="text-slate-200 flex items-center gap-2">
+                <Label className="text-slate-200 flex items-center gap-2">
                   <AlertCircle className="h-4 w-4" />
                   Back Stiffness
                 </Label>
@@ -387,7 +390,6 @@ function App() {
                 </div>
               </div>
               <Slider
-                id="back-stiffness"
                 value={backStiffness}
                 onValueChange={handleBackStiffnessChange}
                 min={0}
@@ -482,13 +484,10 @@ function App() {
 
             <form onSubmit={handleChatSubmit} className="flex gap-2">
               <input
-                id="chat-input"
-                name="chatInput"
                 type="text"
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
                 placeholder="Ask about workouts, nutrition..."
-                autoComplete="off"
                 className="flex-1 px-4 py-2 rounded-lg border border-slate-700 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
               <Button

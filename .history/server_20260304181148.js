@@ -5,7 +5,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // Initialize Gemini with explicit API version
 const genAI = new GoogleGenerativeAI({
-    apiKey: "AIzaSyAmk5iQKw3ezYQYbBQ75lY8IgDs_FWaZpg"
+    apiKey: "AIzaSyD7bvlsVrw0VemSXsNxrbozgglXutrui-w"
 });
 
 const app = express();
@@ -45,7 +45,7 @@ app.post('/api/daily-log', async (req, res) => {
         sleep_hours, knee_pain, back_stiffness
     } = req.body;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     // This prompt forces the AI to be a professional trainer
     const prompt = `
@@ -91,7 +91,7 @@ app.post('/api/daily-log', async (req, res) => {
 app.post('/api/chat', async (req, res) => {
     const { message, context } = req.body;
     
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `
         You are an expert personal trainer named Auto-Trainer. Be friendly, motivational, and provide helpful fitness advice.
@@ -110,12 +110,6 @@ app.post('/api/chat', async (req, res) => {
         res.status(200).json({ reply: text });
     } catch (error) {
         console.error("Chat Error:", error);
-        
-        // Return a fallback response if AI fails
-        const fallbackResponse = {
-            reply: "I'm having trouble connecting to my AI brain right now. However, I'd recommend focusing on compound exercises like push-ups, squats, and rows for a full-body workout. Remember to stay hydrated and get enough rest! 💪"
-        };
-        
-        res.status(200).json(fallbackResponse);
+        res.status(500).json({ error: "Chat is currently offline." });
     }
 });

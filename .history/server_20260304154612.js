@@ -3,10 +3,8 @@ const sqlite3=require('sqlite3').verbose();
 const cors = require('cors');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Initialize Gemini with explicit API version
-const genAI = new GoogleGenerativeAI({
-    apiKey: "AIzaSyAmk5iQKw3ezYQYbBQ75lY8IgDs_FWaZpg"
-});
+// Initialize Gemini
+const genAI = new GoogleGenerativeAI("AIzaSyChO8Oq-0wyFBZrjiaXqDDeSpUhCeUJ8kc");
 
 const app = express();
 const PORT= 5000;
@@ -110,12 +108,6 @@ app.post('/api/chat', async (req, res) => {
         res.status(200).json({ reply: text });
     } catch (error) {
         console.error("Chat Error:", error);
-        
-        // Return a fallback response if AI fails
-        const fallbackResponse = {
-            reply: "I'm having trouble connecting to my AI brain right now. However, I'd recommend focusing on compound exercises like push-ups, squats, and rows for a full-body workout. Remember to stay hydrated and get enough rest! 💪"
-        };
-        
-        res.status(200).json(fallbackResponse);
+        res.status(500).json({ error: "Chat is currently offline." });
     }
 });

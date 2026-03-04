@@ -45,7 +45,7 @@ app.post('/api/daily-log', async (req, res) => {
         sleep_hours, knee_pain, back_stiffness
     } = req.body;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     // This prompt forces the AI to be a professional trainer
     const prompt = `
@@ -91,7 +91,7 @@ app.post('/api/daily-log', async (req, res) => {
 app.post('/api/chat', async (req, res) => {
     const { message, context } = req.body;
     
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `
         You are an expert personal trainer named Auto-Trainer. Be friendly, motivational, and provide helpful fitness advice.
