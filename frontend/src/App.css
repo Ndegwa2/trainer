@@ -1,0 +1,23 @@
+input[type="range"] {
+  width: 100%;
+  margin: 10px 0 20px 0;
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+button {
+  background-color: #00ff88;
+  border: none;
+  color: #121212;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #00cc6e;
+}
