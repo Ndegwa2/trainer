@@ -3,6 +3,7 @@ services:
     name: auto-trainer-api
     env: node
     region: oregon
+    rootDir: .
     buildCommand: npm install
     startCommand: node server.js
     envVars:
