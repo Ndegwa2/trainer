@@ -11,15 +11,25 @@ const PORT = process.env.PORT || 5000;
 
 //middleware
 app.use(cors({
-    origin: ['https://ptrainer.netlify.app', 'http://localhost:5173', 'http://localhost:3000', 'http://localhost:8080'],
+    origin: [
+        'https://ptrainer.netlify.app',
+        'https://69a8cde153a6776e5452e6d8--ptrainer.netlify.app',
+        'http://localhost:5173',
+        'http://localhost:3000',
+        'http://localhost:8080'
+    ],
     credentials: true
 }));
 app.use(express.json());
 
-//connect to database
-const db = new sqlite3.Database('./fitness.db', (err) => {
+//connect to database - use /data for persistent storage on Render
+const dbPath = process.env.NODE_ENV === 'production'
+    ? '/data/fitness.db'
+    : './fitness.db';
+
+const db = new sqlite3.Database(dbPath, (err) => {
     if (err) console.error("Database connection error:", err.message);
-    else console.log("Connected to the fitness database.");
+    else console.log("Connected to the fitness database at:", dbPath);
 });
 
 //create tables
