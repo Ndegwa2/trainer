@@ -11,7 +11,7 @@
   status = 200
 
 [context.production.environment]
-  VITE_API_URL = "https://auto-trainer-api.onrender.com"
+  VITE_API_URL = "https://personal-trainer-g3pf.onrender.com"
 
 [context.deploy-preview.environment]
   VITE_API_URL = "http://localhost:5000"
