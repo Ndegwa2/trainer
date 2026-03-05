@@ -1,0 +1,8 @@
+export default {
+  appId: 'com.autotrainer.app',
+  appName: 'Auto Trainer',
+  webDir: 'dist',
+  server: {
+    androidScheme: 'https'
+  }
+};
